@@ -1,0 +1,1 @@
+if you tick means you know the meaning of that word so it won't repeat itself and will remove from the data base and store in reviewed file. while if you cross means you don't know the meaning of that word and it will occur again !!

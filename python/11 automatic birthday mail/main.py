@@ -1,7 +1,7 @@
 import datetime, pandas, random, smtplib
 
 my_email = "mdnurulhasan1111@gmail.com"
-password = "mopn hrme unyk pale"
+password = "--- the password ---"
 
 now = datetime.datetime.now()
 now_month = now.month

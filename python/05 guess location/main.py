@@ -1,86 +1,47 @@
-# # with open("./weather_data.csv") as file:
-# #     data = file.readlines()
-# #     print(data)
-# #
-# #
-# # import csv
-# # with open("./weather_data.csv") as file:
-# #     data = csv.reader(file)
-# #     temperature = []
-# #     for row in data:
-# #         print(row)
-# #         if row[1] != "temp":
-# #             temperature.append(int(row[1]))
-# #     print(temperature)
-# #
-#
-# import pandas
-# data = pandas.read_csv("weather_data.csv")
-# print(data)
-# data_series = data["temp"]
-#
-# # data frames conversions
-# data_dict = data.to_dict()
-# print(data_dict)
-#
-# # series conversions
-# data_list = data_series.tolist()
-# print(data_list)
-# avg = data_series.mean()
-# print(avg)
-#
-# # Get data in columns
-# data_col1 = data["condition"]
-# data_col2 = data.condition
-# print(data_col1)
-# print(data_col2)
-#
-# # Get data in row
-# data_row = data[data.condition == "Sunny"]
-# print(data_row)
-#
-#
-# max_temp = data.temp.max()
-# which_col = data[data.temp == max_temp]
-# print(which_col)
-#
-# # Get intersection of row and column
-# monday = data[data.day == "Monday"]
-# monday_temp = monday.temp
-# print(monday_temp)
-# only_temp = monday_temp[0]
-# print(only_temp)
-
-
-# ========== squirrel census ==========
+#  issue i face in making
+# 1. loop is not working properly
+# 2. the repeative score board issue
+#  3. how to check the user input is present in the guessed list.
+import turtle
+from turtle import Screen, Turtle
 import pandas
-data = pandas.read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
-# print(data)
 
+my_screen = Screen()
+my_turtle = Turtle()
+image = "blank_states_img.gif"
+my_screen.addshape(image)
+# turtle.shapesize(stretch_len=0.5, stretch_wid=0.5)
+my_turtle.shape(image)
 
-# data_color = data["Primary Fur Color"].tolist()
-# # print(data_color)
-# count_gray = 0
-# count_black = 0
-# count_red = 0
-# for color in data_color:
-#     if color == "Gray":
-#         count_gray += 1
-#     if color == "Cinnamon":
-#         count_red += 1
-#     if color == "Black":
-#         count_black += 1
+text_turtle = Turtle()
+data = pandas.read_csv("50_states.csv")
+data_states = data.state
+# print(data_states)
+count = 0
+guessed_stated = []
+game_is_on = True
+while game_is_on:
+    user_input = my_screen.textinput(title=f"{count}/50 Guess the state",
+                                     prompt="What 's the state name in your mind?").lower()
+    for answer_state in data_states:
+        if user_input == answer_state.lower():
+            if answer_state.lower() not in guessed_stated:
+                text_turtle.penup()
+                # text_turtle.goto(x=data[data.state == state].x[0], y=data[data.state == state].y[0])
+                state_data = data[data.state == answer_state]
+                # this is because the data is extracted in string formate.
+                text_turtle.goto(x=int(state_data.x), y=int(state_data.y))
+                # text_turtle.write(arg=answer_state, align="center", font=("Courier", 10, "normal"))
+                # turtle.write(answer_state)
+                text_turtle.write(state_data.state.item())
+                guessed_stated.append(answer_state.lower())
+                count += 1
+        elif user_input == "exit":
+            game_is_on = False
+            rest_states = []
+            for rest in data_states:
+                if rest.lower() not in guessed_stated:
+                    rest_states.append(rest)
 
-count_gray = len(data[data["Primary Fur Color"] == "Gray"])
-count_red = len(data[data["Primary Fur Color"] == "Cinnamon"])
-count_black = len(data[data["Primary Fur Color"] == "Black"])
-
-# print(count_gray, count_black, count_red)
-data_dict = {
-    "fur color": ["gray", "red", "black"],
-    "count": [count_gray, count_red, count_black]
-}
-
-color_data = pandas.DataFrame(data_dict)
-print(color_data)
-color_data.to_csv("./color_data.csv")
+            rest = pandas.DataFrame(rest_states)
+            rest.to_csv("missed stated.csv")

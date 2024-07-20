@@ -2,7 +2,7 @@ import requests
 import datetime
 
 USERNAME = "nurulhasan"
-TOKEN = "x9b678bcv6568sz7c"
+TOKEN = "--- generated token ---"
 today = datetime.datetime.now()
 
 

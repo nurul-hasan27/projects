@@ -4,7 +4,7 @@ import datetime
 APP_ID = "75b1d6dd"
 APP_KEY = "98fbab91926b2feff03b5203860bf260"
 USERNAME = "nurulhasan"
-PASSWORD = "thepasswordforworkoutsheet"
+PASSWORD = "--- my password ---"
 
 today = datetime.datetime.now()
 modified_date = today.strftime("%d/%m/%Y")
